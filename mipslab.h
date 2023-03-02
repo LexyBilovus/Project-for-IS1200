@@ -65,12 +65,12 @@ void restartscreen();
 void update_obstacle();
 
 
-typedef struct COIN{
+typedef struct COIN
+{
   int x;
   int page;
   int check;
 } COIN;
-
 COIN coin1;
 COIN coin2;
 COIN coin3;

@@ -89,15 +89,17 @@ void display_debug( volatile int * const addr )
   display_update();
 }
 
-uint8_t spi_send_recv(uint8_t data) {
+uint8_t spi_send_recv(uint8_t data) 
+{
 	while(!(SPI2STAT & 0x08));
 	SPI2BUF = data;
 	while(!(SPI2STAT & 1));
 	return SPI2BUF;
 }
 
-void display_init(void) {
-        DISPLAY_CHANGE_TO_COMMAND_MODE;
+void display_init(void) 
+{
+  DISPLAY_CHANGE_TO_COMMAND_MODE;
 	quicksleep(10);
 	DISPLAY_ACTIVATE_VDD;
 	quicksleep(1000000);
@@ -126,7 +128,8 @@ void display_init(void) {
 	spi_send_recv(0xAF);
 }
 
-void display_string(int line, char *s) {
+void display_string(int line, char *s) 
+{
 	int i;
 	if(line < 0 || line >= 4)
 		return;
@@ -141,7 +144,8 @@ void display_string(int line, char *s) {
 			textbuffer[line][i] = ' ';
 }
 
-void display_image(int x, const uint8_t *data) {
+void display_image(int x, const uint8_t *data) 
+{
 	int i, j;
 	
 	for(i = 0; i < 4; i++) {
@@ -160,7 +164,8 @@ void display_image(int x, const uint8_t *data) {
 	}
 }
 
-void display_update(void) {
+void display_update(void) 
+{
 	int i, j, k;
 	int c;
 	for(i = 0; i < 4; i++) {
@@ -275,6 +280,9 @@ char * itoaconv( int num )
   return( &itoa_buffer[ i + 1 ] );
 }
 
+
+////////////////////////////OWN FUNCTIONS//////////////////////////////////
+
 void print_empty_screen() 
 { 
   int j;
@@ -288,26 +296,24 @@ void moveright(int col)
 {
     int i, j;
 
-    for(i = 0, j = 0; i < 10; i++)
+    for(i = 0; i < 10; i++)
     {
-      Screen[(128 * 3) + i + col] = doodle[i] | 0x80;
+      Screen[(128 * 3) + i + col] = doodle[i] | 0x80;//move Doodle to right
+                                                     //bitwise or is needed to print ground with doodle
 
-      if(col >= 10) 
-        Screen[(128 * 3) + i + col - 10] = erase[i] | 0x80;
-      else if(j < col)
-      {
-        Screen[(128 * 3) + j ] = erase[i] | 0x80;
-        j++;
-      }
+      if(col >= 10) //10 - width of Doodle, if col >= 10 we need to clean previous 10 pixels
+        Screen[(128 * 3) + i + col - 10] = erase[i] | 0x80;//cleen space where Doodle was before
+                                                           //bitwise or is needed to print ground
+      else if(i < col)// else means that col < 10 and we clean i pixels while i < 10
+        Screen[(128 * 3) + i ] = erase[i] | 0x80;
     } 
-    display_image(0, Screen);
+    display_image(0, Screen);//display full screen
     delay(300);
 }
 
 void jump(int col) 
 {
     int j;
-
     // Jump up
     for (j = 0; j < 10; j++) 
     {
