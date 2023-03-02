@@ -8,9 +8,9 @@
 #include <pic32mx.h>  /* Declarations of system-specific addresses etc */
 #include "mipslab.h"  /* Declatations for these labs */
 
-char textbuffer[4][16];
+char textbuffer[4][16]; //from lab 3
 
-const uint8_t const font[] = {
+const uint8_t const font[] = { //from lab 3 
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -141,12 +141,15 @@ const uint8_t const font[] = {
 	0, 120, 68, 66, 68, 120, 0, 0,
 };
 
+//uint8_t groups 8 pixels in one column -> we go through the columns 
 const uint8_t const doodle[] = {0x04, 0x08, 0x3c, 0x42, 0x41, 0x42, 0x51, 0x46, 0x28, 0x10};
 
 const uint8_t const erase[] = {
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00,};
+
+const uint8_t const coin[] = {0x04, 0x0e, 0x04}	;	
 
 //screen to update image on display
 uint8_t Screen[] = {
@@ -280,9 +283,9 @@ uint8_t Screen[] = {
 					0x80, 0x80, 0x80, 0x80,
 					0x80, 0x80, 0x80, 0x80,};	
 
-//empty screen with ground to restart game and levels					
-uint8_t Start_screen[] = {
-	0x00, 0x00, 0x00, 0x00,
+//empty screen with ground to restart game and levels 					
+ uint8_t Start_screen[] = {
+					0x00, 0x00, 0x00, 0x00,
 					0x00, 0x00, 0x00, 0x00,
 					0x00, 0x00, 0x00, 0x00,
 					0x00, 0x00, 0x00, 0x00,
@@ -413,7 +416,7 @@ uint8_t Start_screen[] = {
 					0x80, 0x80, 0x80, 0x80,
 	};	
 					
-uint8_t coin[] = {0x04, 0x0e, 0x04}	;
+
 	
 	
 
